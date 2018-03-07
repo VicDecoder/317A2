@@ -41,3 +41,37 @@ class QDW:
             print(self.gameState[row,5], end="")
             print("|")
         print("+-+-+-+-+-+")
+    def placeCharacter(self,character,row,column):
+        """Places a acharacter in a postion on the dictionary"""
+        self.gameState[row,column]=character
+
+
+    def moveQueen(self,destRow,destColumn):
+        """Moves the queen the destRow and destColumn"""
+
+        for r in range(1,6):
+            for c in range(1,6):
+                if self.gameState[r,c]=="Q":
+                    self.gameState[r,c]=" "
+                    self.gameState[destRow,destColumn]="Q"
+
+
+
+    def loadCharacters(self):
+        """
+              A pleasant view of the current game state
+                :return: nothing
+                 """
+        queen="Q"
+        dragons="D"
+        zombie="W"
+        self.placeCharacter(queen,1,3)
+        self.placeCharacter(dragons,2,2)
+        self.placeCharacter(dragons, 2, 3)
+        self.placeCharacter(dragons, 2, 4)
+        self.placeCharacter(zombie, 5, 1)
+        self.placeCharacter(zombie, 5, 2)
+        self.placeCharacter(zombie, 5, 3)
+        self.placeCharacter(zombie, 5, 4)
+        self.placeCharacter(zombie, 5, 5)
+
