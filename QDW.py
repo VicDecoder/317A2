@@ -55,7 +55,33 @@ class QDW:
                     self.gameState[r,c]=" "
                     self.gameState[destRow,destColumn]="Q"
 
+    def moveZombie(self, initRow,initCol,finalRow,finalCol):
+        """
 
+        :param initRow: the initail row of the zombie:
+        :param initCol: the iniial row of the zombie:
+        :param finalRow: the final row of the zombie you want to move:
+        :param finalCol: the final column of the package you want to move:
+        :Checks if there is a Zombie in that postion
+        return:
+        """
+        if self.gameState[initRow,initCol]=="W":
+            self.gameState[initRow, initCol] = " "
+            self.gameState[finalRow, finalCol] = "W"
+
+    def moveDragon(self, initRow, initCol, finalRow, finalCol):
+        """
+
+        :param initRow: the initail row of the dragon:
+        :param initCol: the iniial row of the dragon:
+        :param finalRow: the final row of the dragon you want to move:
+        :param finalCol: the final column of the dragon you want to move:
+        :Checks if there is a dragon in that postion
+        return:
+        """
+        if self.gameState[initRow, initCol] == "D":
+            self.gameState[initRow, initCol] = " "
+            self.gameState[finalRow, finalCol] = "D"
 
     def loadCharacters(self):
         """
@@ -74,4 +100,8 @@ class QDW:
         self.placeCharacter(zombie, 5, 3)
         self.placeCharacter(zombie, 5, 4)
         self.placeCharacter(zombie, 5, 5)
+    def isZombieMoveValid(self,initR,initCol,finalR,finalC):
+
+        return true
+
 
