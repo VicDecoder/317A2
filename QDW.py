@@ -150,6 +150,8 @@ class QDW:
             return False
         if self.checkSides(initR,initCol,finalR,finalC) and (self.gameState[finalR,finalC] == 'Q'or self.gameState[finalR,finalC] == 'D')  and  (not self.isDiagonal(initR,initCol,finalR,finalC)):
             return False
+        if not self.checkSides(initR, initCol, finalR, finalC):
+            return False
         return True
 
     def isMaxMoveValid(self,initR,initCol,finalR,finalC):
