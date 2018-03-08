@@ -133,12 +133,12 @@ class QDW:
         :return: true is the moves is valid
         """
 
-        if self.checkSides(initR,initCol,finalR,finalC) and self.gameState[finalR,finalC]=='D' or 'Q':
+        if self.checkSides(initR,initCol,finalR,finalC) and (self.gameState[finalR,finalC]=='D' or self.gameState[finalR,finalC]== 'Q'):
             print("The value is either q or d")
             return True
 
         if self.checkSides(initR, initCol, finalR, finalC) and self.gameState[finalR, finalC] == 'W':
-            print("The value is D")
+            print("The value is W")
             return False
         return True
 
