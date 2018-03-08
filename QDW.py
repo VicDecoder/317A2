@@ -55,6 +55,13 @@ class QDW:
                     self.gameState[r,c]=" "
                     self.gameState[destRow,destColumn]="Q"
 
+    def moveQueen2(self,initRow,initCol,finalRow,finalCol):
+        if self.gameState[initRow, initCol] == "Q":
+            if self.isMaxMoveValid(initRow, initCol, finalRow, finalCol) and self.checkSides(initRow, initCol, finalRow,
+                                                                                             finalCol):
+                self.gameState[initRow, initCol] = " "
+                self.gameState[finalRow, finalCol] = "Q"
+
     def moveZombie(self, initRow,initCol,finalRow,finalCol):
         """
 
@@ -66,7 +73,7 @@ class QDW:
         return:
         """
         if self.gameState[initRow,initCol]=='W':
-            if self.isZombieMoveValid(initRow, initCol, finalRow, finalCol):
+            if self.isZombieMoveValid(initRow, initCol, finalRow, finalCol) and self.checkSides(initRow,initCol, finalRow, finalCol):
                 self.gameState[initRow, initCol] = ' '
                 self.gameState[finalRow, finalCol] = 'W'
 
@@ -82,8 +89,9 @@ class QDW:
         return:
         """
         if self.gameState[initRow, initCol] == "D":
-           self.gameState[initRow, initCol] = " "
-           self.gameState[finalRow, finalCol] = "D"
+           if self.isMaxMoveValid(initRow,initCol,finalRow,finalCol) and self.checkSides(initRow,initCol, finalRow, finalCol):
+            self.gameState[initRow, initCol] = " "
+            self.gameState[finalRow, finalCol] = "D"
 
     def loadCharacters(self):
         """
@@ -113,15 +121,11 @@ class QDW:
             return False
         if initCol==5 and finalC >5:
             return False
-        if abs(finalR-initR) == 1:
+        if abs(finalR-initR) == 1 or abs(finalC - initCol) == 1:
             return True
         else:
             return False
-        if abs(finalC-initCol) == 1:
-            return True
-        else:
-            return False
-        return True
+
 
     def isZombieMoveValid(self,initR,initCol,finalR,finalC):
         """
@@ -141,6 +145,13 @@ class QDW:
             print("The value is W")
             return False
         return True
+
+    def isMaxMoveValid(self,initR,initCol,finalR,finalC):
+        if self.checkSides(initR, initCol, finalR, finalC) and self.gameState[finalR, finalC] == 'D':
+            return False
+        return True
+
+
 
 
 
