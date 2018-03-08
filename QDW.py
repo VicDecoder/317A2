@@ -124,8 +124,13 @@ class QDW:
         :param finalC:the final column of th zombie
         :return: true is the moves is valid
         """
-        if ()
 
-        return True
+        if self.checkSides(initR,initCol,finalR,finalC) and self.gameState[finalR,finalC]=="D" or "Q":
+            return True
+        else:
+            return False
+
+
+
 
 
