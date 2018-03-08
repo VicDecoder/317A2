@@ -124,7 +124,7 @@ class QDW:
         :param finalC:the final column of th zombie
         :return: true is the moves is valid
         """
-        if
+        if ()
 
         return True
 
