@@ -66,8 +66,9 @@ class QDW:
         return:
         """
         if self.gameState[initRow,initCol]=="W":
-            self.gameState[initRow, initCol] = " "
-            self.gameState[finalRow, finalCol] = "W"
+            if self.isZombieMoveValid(initRow, initCol, finalRow, finalCol):
+                self.gameState[initRow, initCol] = " "
+                self.gameState[finalRow, finalCol] = "W"
 
     def moveDragon(self, initRow, initCol, finalRow, finalCol):
         """
@@ -80,8 +81,8 @@ class QDW:
         return:
         """
         if self.gameState[initRow, initCol] == "D":
-            self.gameState[initRow, initCol] = " "
-            self.gameState[finalRow, finalCol] = "D"
+           self.gameState[initRow, initCol] = " "
+           self.gameState[finalRow, finalCol] = "D"
 
     def loadCharacters(self):
         """
@@ -100,6 +101,8 @@ class QDW:
         self.placeCharacter(zombie, 5, 3)
         self.placeCharacter(zombie, 5, 4)
         self.placeCharacter(zombie, 5, 5)
+
+
     def checkSides(self,initR,initCol,finalR,finalC):
         if initCol==1 and finalC <1:
             return False
@@ -107,7 +110,7 @@ class QDW:
             return False
         if initR==5 and finalR >5:
             return False
-        if initCol==5 and finalR >5:
+        if initCol==5 and finalC >5:
             return False
         if finalR-initR!=1 or finalR-initR!=-1:
             return False
@@ -126,9 +129,14 @@ class QDW:
         """
 
         if self.checkSides(initR,initCol,finalR,finalC) and self.gameState[finalR,finalC]=="D" or "Q":
+
             return True
-        else:
+
+        if self.checkSides(initR, initCol, finalR, finalC) and self.gameState[finalR, finalC] == 'W':
+
             return False
+        print("Turns out its true")
+        return True
 
 
 
