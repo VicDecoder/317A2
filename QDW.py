@@ -102,6 +102,6 @@ class QDW:
         self.placeCharacter(zombie, 5, 5)
     def isZombieMoveValid(self,initR,initCol,finalR,finalC):
 
-        return true
+        return  true
 
 
