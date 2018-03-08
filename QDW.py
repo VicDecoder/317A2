@@ -65,10 +65,11 @@ class QDW:
         :Checks if there is a Zombie in that postion
         return:
         """
-        if self.gameState[initRow,initCol]=="W":
+        if self.gameState[initRow,initCol]=='W':
             if self.isZombieMoveValid(initRow, initCol, finalRow, finalCol):
-                self.gameState[initRow, initCol] = " "
-                self.gameState[finalRow, finalCol] = "W"
+                self.gameState[initRow, initCol] = ' '
+                self.gameState[finalRow, finalCol] = 'W'
+
 
     def moveDragon(self, initRow, initCol, finalRow, finalCol):
         """
@@ -112,9 +113,13 @@ class QDW:
             return False
         if initCol==5 and finalC >5:
             return False
-        if finalR-initR!=1 or finalR-initR!=-1:
+        if abs(finalR-initR) == 1:
+            return True
+        else:
             return False
-        if finalC-initCol!=1 or finalC-initCol!=-1:
+        if abs(finalC-initCol) == 1:
+            return True
+        else:
             return False
         return True
 
@@ -128,15 +133,16 @@ class QDW:
         :return: true is the moves is valid
         """
 
-        if self.checkSides(initR,initCol,finalR,finalC) and self.gameState[finalR,finalC]=="D" or "Q":
-
+        if self.checkSides(initR,initCol,finalR,finalC) and self.gameState[finalR,finalC]=='D' or 'Q':
+            print("The value is either q or d")
             return True
 
         if self.checkSides(initR, initCol, finalR, finalC) and self.gameState[finalR, finalC] == 'W':
-
+            print("The value is D")
             return False
-        print("Turns out its true")
         return True
+
+
 
 
 
