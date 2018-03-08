@@ -100,8 +100,28 @@ class QDW:
         self.placeCharacter(zombie, 5, 3)
         self.placeCharacter(zombie, 5, 4)
         self.placeCharacter(zombie, 5, 5)
-    def isZombieMoveValid(self,initR,initCol,finalR,finalC):
+    def checkSides(self,initR,initCol,finalR,finalC):
+        if initCol==1 and finalC <1:
+            return false
+        if initR==1 and finalR <1:
+            return false
+        if initR==5 and finalR >5:
+            return false
+        if initCol==5 and finalR >5:
+            return false
+        return true
 
-        return  true
+    def isZombieMoveValid(self,initR,initCol,finalR,finalC):
+        """
+
+        :param initR: THe initial row of the zombie
+        :param initCol: The initial colums of the zombie
+        :param finalR: The final row of the zombie
+        :param finalC:the final column of th zombie
+        :return: true is the moves is valid
+        """
+
+
+        return true
 
 
