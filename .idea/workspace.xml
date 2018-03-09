@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b7036ef9-3e0f-4839-97fd-766c31fb9da0" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/317A2.iml" afterPath="$PROJECT_DIR$/.idea/317A2.iml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/QDW.py" afterPath="$PROJECT_DIR$/QDW.py" />
-      <change beforePath="$PROJECT_DIR$/playQDW.py" afterPath="$PROJECT_DIR$/playQDW.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -287,7 +284,14 @@
       <option name="project" value="LOCAL" />
       <updated>1520564705453</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Added two new functions and changed the move Queen function">
+      <created>1520639797796</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1520639797796</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
