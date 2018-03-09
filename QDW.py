@@ -174,14 +174,26 @@ class QDW:
     def isMaxNode(self):
         return self.turn == 'Q' or 'D'
 
-    def findZombies(self):
+    def findMaxNodePostions(self):
+        """
+
+        :return: This function return as array of tuple containing
+        """
         array = []
-        for r in range(1,6):
-            for c in range(1,6):
-                if(self.gameState[r,c]=='W'):
-                    tuple = (r,c)
-                    array.append(tuple)
+
+        for r in range(1, 6):
+            for c in range(1, 6):
+                if self.gameState[r, c] == 'D':
+                    tup = (r, c)
+                    array.append(tup)
+
+        for r in range(1, 6):
+            for c in range(1, 6):
+                if self.gameState[r, c] == 'Q':
+                    tup = (r, c)
+                    array.insert(0, tup)
         return array
+
 
 
 
