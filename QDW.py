@@ -122,10 +122,18 @@ class QDW:
             return False
         if initCol==5 and finalC >5:
             return False
+        if abs(finalR-initR) == 1 and abs(finalC - initCol) == 0:
+            return True
         if abs(finalR-initR) == 1 and abs(finalC - initCol) == 1:
             return True
+        if abs(finalR-initR) == 0 and abs(finalC - initCol) == 1:
+            return True
+
+        # if abs(finalC - initCol) == 1:
+        #     return True
         else:
             return False
+        return True
 
 
     def isZombieMoveValid(self,initR,initCol,finalR,finalC):
@@ -151,9 +159,9 @@ class QDW:
         if self.checkSides(initR,initCol,finalR,finalC) and (self.gameState[finalR,finalC] == 'Q'or self.gameState[ finalR , finalC] == 'D') and (not self.isDiagonal(initR,initCol,finalR,finalC)):
             print("It checks if they are")
             return False
-        if not self.checkSides(initR, initCol, finalR, finalC):
-            print("It checks if they are equal")
-            return False
+        # if not self.checkSides(initR, initCol, finalR, finalC):
+        #     print("It checks if they are equal")
+        #     return False
         """
         I added a statement here to make sure a player can not make a move on itself
         """
@@ -232,10 +240,10 @@ class QDW:
                         print("Before changing")
                         self.display()
                         print("After Changing ")
-                        print("Moving ", i, "to ", r, c)
                         self.moveZombie(i[0],i[1],r,c)
                         self.display()
 
+
         self.gameState=state
-        self.display()
+
         return states

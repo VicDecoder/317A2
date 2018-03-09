@@ -10,6 +10,8 @@ print("******************************")
 a.display()
 arr=[]
 
+
+
 arr=a.findMinNodePostion()
 for i in arr:
     print("The zombies are in the postions (",i[0],",",i[1],")")
