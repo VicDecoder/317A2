@@ -1,7 +1,7 @@
 class QDW:
 
 
-    def __init__(self,state):
+    def __init__(self,state,player= 'W'):
         """
                Create a new object
                :param state: a description of the board for the current state
@@ -16,6 +16,7 @@ class QDW:
                     self.gameState[row,column]=' '
         else:
             self.gameState=state
+            self.turn = player
 
     def str(self):
         """ *** needed for search ***
@@ -137,12 +138,15 @@ class QDW:
         :return: true is the moves is valid
         """
 
-        if self.checkSides(initR,initCol,finalR,finalC) and (self.gameState[finalR,finalC]=='D' or self.gameState[finalR,finalC]== 'Q'):
+        if self.checkSides(initR,initCol,finalR,finalC) and (self.gameState[finalR,finalC]=='D' or self.gameState[finalR,finalC]== 'Q') and self.isDiagonal(initR,initCol,finalR,finalC):
             print("The value is either q or d")
             return True
 
         if self.checkSides(initR, initCol, finalR, finalC) and self.gameState[finalR, finalC] == 'W':
             print("The value is W")
+
+            return False
+        if self.checkSides(initR,initCol,finalR,finalC) and self.gameState[finalR,finalC] == " " and self.isDiagonal(initR,initCol,finalR,finalC):
             return False
         return True
 
@@ -150,7 +154,21 @@ class QDW:
         if self.checkSides(initR, initCol, finalR, finalC) and self.gameState[finalR, finalC] == 'D':
             return False
         return True
-
+    def isDiagonal(self, initR,initC,finalR,finalC):
+        if((finalR-initR) == 1 and (finalC-initC) == 1):
+            return True
+        if ((finalR - initR) == 1 and (finalC - initC) == -1):
+            return True
+        if ((finalR - initR) == -1 and (finalC - initC) == 1):
+            return True
+        if ((finalR - initR) == -1 and (finalC - initC) == -1):
+            return True
+        else:
+            return False
+    def isMinNode(self):
+        return self.turn == 'W'
+    def isMaxNode(self):
+        return self.turn == 'Q' or 'D'
 
 
 
