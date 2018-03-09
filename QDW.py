@@ -122,7 +122,7 @@ class QDW:
             return False
         if initCol==5 and finalC >5:
             return False
-        if abs(finalR-initR) == 1 or abs(finalC - initCol) == 1:
+        if abs(finalR-initR) == 1 and abs(finalC - initCol) == 1:
             return True
         else:
             return False
@@ -139,18 +139,25 @@ class QDW:
         """
 
         if self.checkSides(initR,initCol,finalR,finalC) and (self.gameState[finalR,finalC]=='D' or self.gameState[finalR,finalC]== 'Q') and self.isDiagonal(initR,initCol,finalR,finalC):
-            print("The value is either q or d")
+            print("It checks ")
             return True
 
         if self.checkSides(initR, initCol, finalR, finalC) and self.gameState[finalR, finalC] == 'W':
-            print("The value is W")
-
+            print("It checks if ")
             return False
         if self.checkSides(initR,initCol,finalR,finalC) and self.gameState[finalR,finalC] == " "  and self.isDiagonal(initR,initCol,finalR,finalC):
+            print("It checks if they")
             return False
-        if self.checkSides(initR,initCol,finalR,finalC) and (self.gameState[finalR,finalC] == 'Q'or self.gameState[finalR,finalC] == 'D')  and  (not self.isDiagonal(initR,initCol,finalR,finalC)):
+        if self.checkSides(initR,initCol,finalR,finalC) and (self.gameState[finalR,finalC] == 'Q'or self.gameState[ finalR , finalC] == 'D') and (not self.isDiagonal(initR,initCol,finalR,finalC)):
+            print("It checks if they are")
             return False
         if not self.checkSides(initR, initCol, finalR, finalC):
+            print("It checks if they are equal")
+            return False
+        """
+        I added a statement here to make sure a player can not make a move on itself
+        """
+        if initR==finalR and initCol==finalC:
             return False
         return True
 
@@ -203,11 +210,32 @@ class QDW:
                     tup = (r, c)
                     array.insert(0, tup)
         return array
+    def copyState(self):
+        state=dict()
+        for r in range(1,6):
+            for c in range(1,6):
+                state[r,c]=e=self.gameState[r,c]
+        return state
 
+    def minSuccersor(self):
+        states = []
+        temp = []
+        state=self.copyState()
+        temp=self.findMinNodePostion()
+        print("It gets here")
+        for i in temp:
+            for r in range(1,6):
+                for c in range(1,6):
+                    print("Moving ", i, "to ", r, c)
+                    if self.isZombieMoveValid(i[0],i[1],r,c):
+                        self.gameState = state
+                        print("Before changing")
+                        self.display()
+                        print("After Changing ")
+                        print("Moving ", i, "to ", r, c)
+                        self.moveZombie(i[0],i[1],r,c)
+                        self.display()
 
-
-
-
-
-
-
+        self.gameState=state
+        self.display()
+        return states
