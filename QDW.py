@@ -174,7 +174,17 @@ class QDW:
     def isMaxNode(self):
         return self.turn == 'Q' or 'D'
 
-    def findMaxNodePostions(self):
+    def findMinNodePostion(self):
+        array = []
+
+        for r in range(1, 6):
+            for c in range(1, 6):
+                if self.gameState[r, c] == 'W':
+                    tup = (r, c)
+                    array.append(tup)
+        return array
+
+     def findMaxNodePostions(self):
         """
 
         :return: This function return as array of tuple containing
