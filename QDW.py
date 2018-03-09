@@ -184,7 +184,7 @@ class QDW:
                     array.append(tup)
         return array
 
-     def findMaxNodePostions(self):
+    def findMaxNodePostions(self):
         """
 
         :return: This function return as array of tuple containing
