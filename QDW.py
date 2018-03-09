@@ -146,7 +146,9 @@ class QDW:
             print("The value is W")
 
             return False
-        if self.checkSides(initR,initCol,finalR,finalC) and self.gameState[finalR,finalC] == " " and self.isDiagonal(initR,initCol,finalR,finalC):
+        if self.checkSides(initR,initCol,finalR,finalC) and self.gameState[finalR,finalC] == " "  and self.isDiagonal(initR,initCol,finalR,finalC):
+            return False
+        if self.checkSides(initR,initCol,finalR,finalC) and (self.gameState[finalR,finalC] == 'Q'or self.gameState[finalR,finalC] == 'D')  and  (not self.isDiagonal(initR,initCol,finalR,finalC)):
             return False
         return True
 
