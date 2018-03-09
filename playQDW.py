@@ -23,6 +23,16 @@ a.display()
 a.moveZombie(2,2,1,2)
 print("******************************")
 a.display()
+array =a.findZombies()
+tup=()
+# for i in array:
+#     tup=array.pop(i)
+
+print (str(array)[1:-1])
+
+
+
+
 # print(a.isDiagonal(2,2,1,2))
 # a.display()
 # a.moveZombie(5, 1, 4, 1)
