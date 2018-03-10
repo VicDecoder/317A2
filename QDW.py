@@ -114,26 +114,41 @@ class QDW:
 
 
     def checkSides(self,initR,initCol,finalR,finalC):
-        if initCol==1 and finalC <1:
-            return False
-        if initR==1 and finalR <1:
-            return False
-        if initR==5 and finalR >5:
-            return False
-        if initCol==5 and finalC >5:
-            return False
-        if abs(finalR-initR) == 1 and abs(finalC - initCol) == 0:
+        if abs(finalR - initR) == 1 and abs(finalC - initCol) == 0:
             return True
-        if abs(finalR-initR) == 1 and abs(finalC - initCol) == 1:
+        elif abs(finalR - initR) == 1 and abs(finalC - initCol) == 1:
             return True
-        if abs(finalR-initR) == 0 and abs(finalC - initCol) == 1:
+        elif abs(finalR - initR) == 0 and abs(finalC - initCol) == 1:
             return True
+
+        elif initCol==1 and finalC <1:
+            return False
+        elif initR==1 and finalR <1:
+            return False
+        elif initR==5 and finalR >5:
+            return False
+        elif initCol==5 and finalC >5:
+            return False
+
 
         # if abs(finalC - initCol) == 1:
         #     return True
         else:
             return False
         return True
+
+    def checkMaxSides(self,initR,initCol,finalR,finalC):
+        if initCol == 1 and finalC < 1:
+            return False
+
+        elif initR == 1 and finalR < 1:
+            return False
+
+        elif initR == 5 and finalR > 5:
+            return False
+        elif initCol == 5 and finalC > 5:
+            return False
+
 
 
     def isZombieMoveValid(self,initR,initCol,finalR,finalC):
@@ -145,28 +160,30 @@ class QDW:
         :param finalC:the final column of th zombie
         :return: true is the moves is valid
         """
+        if self.checkSides(initR,initCol,finalR,finalC):
+            if(self.gameState[finalR,finalC]=='D' or self.gameState[finalR,finalC]== 'Q') and self.isDiagonal(initR,initCol,finalR,finalC):
+                print("It checks ")
+                return True
 
-        if self.checkSides(initR,initCol,finalR,finalC) and (self.gameState[finalR,finalC]=='D' or self.gameState[finalR,finalC]== 'Q') and self.isDiagonal(initR,initCol,finalR,finalC):
-            print("It checks ")
-            return True
-
-        if self.checkSides(initR, initCol, finalR, finalC) and self.gameState[finalR, finalC] == 'W':
-            print("It checks if ")
-            return False
-        if self.checkSides(initR,initCol,finalR,finalC) and self.gameState[finalR,finalC] == " "  and self.isDiagonal(initR,initCol,finalR,finalC):
-            print("It checks if they")
-            return False
-        if self.checkSides(initR,initCol,finalR,finalC) and (self.gameState[finalR,finalC] == 'Q'or self.gameState[ finalR , finalC] == 'D') and (not self.isDiagonal(initR,initCol,finalR,finalC)):
-            print("It checks if they are")
-            return False
-        # if not self.checkSides(initR, initCol, finalR, finalC):
-        #     print("It checks if they are equal")
-        #     return False
-        """
-        I added a statement here to make sure a player can not make a move on itself
-        """
-        if initR==finalR and initCol==finalC:
-            return False
+            if self.gameState[finalR, finalC] == 'W':
+                print("It checks if ")
+                return False
+            if self.gameState[finalR,finalC] == " "  and self.isDiagonal(initR,initCol,finalR,finalC):
+                print("It checks if they")
+                return False
+            if (self.gameState[finalR,finalC] == 'Q'or self.gameState[ finalR , finalC] == 'D') and (not self.isDiagonal(initR,initCol,finalR,finalC)):
+                print("It checks if they are")
+                return False
+            # if not self.checkSides(initR, initCol, finalR, finalC):
+            #     print("It checks if they are equal")
+            #     return False
+            """
+            I added a statement here to make sure a player can not make a move on itself
+            """
+            if initR==finalR and initCol==finalC:
+                return False
+            if self.gameState[initR,initCol] == ' ':
+                return False
         return True
 
     def isMaxMoveValid(self,initR,initCol,finalR,finalC):
@@ -218,32 +235,37 @@ class QDW:
                     tup = (r, c)
                     array.insert(0, tup)
         return array
-    def copyState(self):
-        state=dict()
+    def copyState(self,state):
+        returnState=dict()
         for r in range(1,6):
             for c in range(1,6):
-                state[r,c]=e=self.gameState[r,c]
-        return state
+                returnState[r,c]=e=state[r,c]
+        return returnState
 
     def minSuccersor(self):
         states = []
         temp = []
-        state=self.copyState()
+        orginalState=self.copyState(self.gameState)
         temp=self.findMinNodePostion()
         print("It gets here")
         for i in temp:
+            self.gameState=self.copyState(orginalState)
             for r in range(1,6):
                 for c in range(1,6):
-                    print("Moving ", i, "to ", r, c)
-                    if self.isZombieMoveValid(i[0],i[1],r,c):
-                        self.gameState = state
-                        print("Before changing")
-                        self.display()
+
+                    if self.isZombieMoveValid(i[0],i[1],r,c) and self.checkSides(i[0],i[1],r,c):
+                        print("Moving ", i, "to ", r, c)
+
+                        # print("Before changing")
+                        # self.display()
                         print("After Changing ")
                         self.moveZombie(i[0],i[1],r,c)
                         self.display()
+                        states.append(self.gameState)
 
 
-        self.gameState=state
+
+        self.gameState=self.copyState(orginalState)
+
 
         return states
