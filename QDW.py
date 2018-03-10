@@ -116,18 +116,18 @@ class QDW:
     def checkSides(self,initR,initCol,finalR,finalC):
         if abs(finalR - initR) == 1 and abs(finalC - initCol) == 0:
             return True
-        elif abs(finalR - initR) == 1 and abs(finalC - initCol) == 1:
+        if abs(finalR - initR) == 1 and abs(finalC - initCol) == 1:
             return True
-        elif abs(finalR - initR) == 0 and abs(finalC - initCol) == 1:
+        if abs(finalR - initR) == 0 and abs(finalC - initCol) == 1:
             return True
 
-        elif initCol==1 and finalC <1:
+        if initCol==1 and finalC <1:
             return False
-        elif initR==1 and finalR <1:
+        if initR==1 and finalR <1:
             return False
-        elif initR==5 and finalR >5:
+        if initR==5 and finalR >5:
             return False
-        elif initCol==5 and finalC >5:
+        if initCol==5 and finalC >5:
             return False
 
 
@@ -137,17 +137,6 @@ class QDW:
             return False
         return True
 
-    def checkMaxSides(self,initR,initCol,finalR,finalC):
-        if initCol == 1 and finalC < 1:
-            return False
-
-        elif initR == 1 and finalR < 1:
-            return False
-
-        elif initR == 5 and finalR > 5:
-            return False
-        elif initCol == 5 and finalC > 5:
-            return False
 
 
 
@@ -187,7 +176,7 @@ class QDW:
         return True
 
     def isMaxMoveValid(self,initR,initCol,finalR,finalC):
-        if self.checkSides(initR, initCol, finalR, finalC) and self.gameState[finalR, finalC] == 'D':
+        if self.checkSides(initR, initCol, finalR, finalC) and self.gameState[finalR, finalC] == 'D' or self.gameState[finalR, finalC] == 'Q':
             return False
         return True
     def isDiagonal(self, initR,initC,finalR,finalC):
@@ -206,17 +195,17 @@ class QDW:
     def isMaxNode(self):
         return self.turn == 'Q' or 'D'
 
-    def findMinNodePostion(self):
+    def findMinNodePostion(self,state):
         array = []
 
         for r in range(1, 6):
             for c in range(1, 6):
-                if self.gameState[r, c] == 'W':
+                if state[r, c] == 'W':
                     tup = (r, c)
                     array.append(tup)
         return array
 
-    def findMaxNodePostions(self):
+    def findMaxNodePostion(self,state):
         """
 
         :return: This function return as array of tuple containing
@@ -225,13 +214,13 @@ class QDW:
 
         for r in range(1, 6):
             for c in range(1, 6):
-                if self.gameState[r, c] == 'D':
+                if state[r, c] == 'D':
                     tup = (r, c)
                     array.append(tup)
 
         for r in range(1, 6):
             for c in range(1, 6):
-                if self.gameState[r, c] == 'Q':
+                if state[r, c] == 'Q':
                     tup = (r, c)
                     array.insert(0, tup)
         return array
@@ -241,31 +230,56 @@ class QDW:
             for c in range(1,6):
                 returnState[r,c]=e=state[r,c]
         return returnState
+    def moveMax(self,initR,initCol,finalR,finalC):
+        self.moveQueen2(initR,initCol,finalR,finalC)
+        self.moveDragon(initR,initCol,finalR,finalC)
 
     def minSuccersor(self):
         states = []
         temp = []
-        orginalState=self.copyState(self.gameState)
-        temp=self.findMinNodePostion()
+        orginalState = self.copyState(self.gameState)
+        temp = self.findMinNodePostion(orginalState)
         print("It gets here")
         for i in temp:
-            self.gameState=self.copyState(orginalState)
-            for r in range(1,6):
-                for c in range(1,6):
-
-                    if self.isZombieMoveValid(i[0],i[1],r,c) and self.checkSides(i[0],i[1],r,c):
+            self.gameState = self.copyState(orginalState)
+            for r in range(1, 6):
+                self.gameState = self.copyState(orginalState)
+                for c in range(1, 6):
+                    self.gameState = self.copyState(orginalState)
+                    if self.isZombieMoveValid(i[0], i[1], r, c) and self.checkSides(i[0], i[1], r, c):
+                        self.gameState = self.copyState(orginalState)
                         print("Moving ", i, "to ", r, c)
-
-                        # print("Before changing")
-                        # self.display()
                         print("After Changing ")
-                        self.moveZombie(i[0],i[1],r,c)
+                        self.moveZombie(i[0], i[1], r, c)
                         self.display()
                         states.append(self.gameState)
 
-
-
-        self.gameState=self.copyState(orginalState)
-
+        self.gameState = self.copyState(orginalState)
 
         return states
+
+    def maxSuccersor(self):
+        states = []
+        temp = []
+        orginalState = self.copyState(self.gameState)
+        temp = self.findMaxNodePostion(orginalState)
+        print("It gets here")
+        for i in temp:
+            self.gameState = self.copyState(orginalState)
+            for r in range(1, 6):
+                self.gameState = self.copyState(orginalState)
+                for c in range(1, 6):
+                    self.gameState = self.copyState(orginalState)
+                    if self.isMaxMoveValid(i[0], i[1], r, c) and self.checkSides(i[0], i[1], r, c):
+                        self.gameState = self.copyState(orginalState)
+                        print("Moving ", i, "to ", r, c)
+                        print("After Changing ")
+                        self.moveMax(i[0], i[1], r, c)
+                        self.display()
+                        states.append(self.gameState)
+
+        self.gameState = self.copyState(orginalState)
+
+        return states
+
+
