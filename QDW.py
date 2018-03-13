@@ -1,7 +1,7 @@
 class QDW:
 
 
-    def __init__(self,state,player= 'W'):
+    def __init__(self,state,player='MIN'):
         """
                Create a new object
                :param state: a description of the board for the current state
@@ -15,8 +15,9 @@ class QDW:
                 for column in range(1,6):
                     self.gameState[row,column]=' '
         else:
-            self.gameState=state
-            self.turn = player
+            self.gameState = state
+        self.whoseTurn = player
+
 
     def str(self):
         """ *** needed for search ***
@@ -151,17 +152,17 @@ class QDW:
         """
         if self.checkSides(initR,initCol,finalR,finalC):
             if(self.gameState[finalR,finalC]=='D' or self.gameState[finalR,finalC]== 'Q') and self.isDiagonal(initR,initCol,finalR,finalC):
-                print("It checks ")
+
                 return True
 
             if self.gameState[finalR, finalC] == 'W':
-                print("It checks if ")
+
                 return False
             if self.gameState[finalR,finalC] == " "  and self.isDiagonal(initR,initCol,finalR,finalC):
-                print("It checks if they")
+
                 return False
             if (self.gameState[finalR,finalC] == 'Q'or self.gameState[ finalR , finalC] == 'D') and (not self.isDiagonal(initR,initCol,finalR,finalC)):
-                print("It checks if they are")
+
                 return False
             # if not self.checkSides(initR, initCol, finalR, finalC):
             #     print("It checks if they are equal")
@@ -190,11 +191,6 @@ class QDW:
             return True
         else:
             return False
-    def isMinNode(self):
-        return self.turn == 'W'
-    def isMaxNode(self):
-        return self.turn == 'Q' or 'D'
-
     def findMinNodePostion(self,state):
         array = []
 
@@ -228,7 +224,7 @@ class QDW:
         returnState=dict()
         for r in range(1,6):
             for c in range(1,6):
-                returnState[r,c]=e=state[r,c]
+                returnState[r,c]=state[r,c]
         return returnState
     def moveMax(self,initR,initCol,finalR,finalC):
         self.moveQueen2(initR,initCol,finalR,finalC)
@@ -236,10 +232,9 @@ class QDW:
 
     def minSuccersor(self):
         states = []
-        temp = []
         orginalState = self.copyState(self.gameState)
         temp = self.findMinNodePostion(orginalState)
-        print("It gets here")
+        self.togglePlayer(self.whoseTurn)
         for i in temp:
             self.gameState = self.copyState(orginalState)
             for r in range(1, 6):
@@ -248,11 +243,10 @@ class QDW:
                     self.gameState = self.copyState(orginalState)
                     if self.isZombieMoveValid(i[0], i[1], r, c) and self.checkSides(i[0], i[1], r, c):
                         self.gameState = self.copyState(orginalState)
-                        print("Moving ", i, "to ", r, c)
-                        print("After Changing ")
+
                         self.moveZombie(i[0], i[1], r, c)
-                        self.display()
-                        states.append(self.gameState)
+
+                        states.append(QDW(self.gameState,self.whoseTurn))
 
         self.gameState = self.copyState(orginalState)
 
@@ -262,8 +256,12 @@ class QDW:
         states = []
         temp = []
         orginalState = self.copyState(self.gameState)
+        value=False
+        if (self.whoseTurn==True):
+            value=True
+
         temp = self.findMaxNodePostion(orginalState)
-        print("It gets here")
+        self.togglePlayer(self.whoseTurn)
         for i in temp:
             self.gameState = self.copyState(orginalState)
             for r in range(1, 6):
@@ -272,14 +270,87 @@ class QDW:
                     self.gameState = self.copyState(orginalState)
                     if self.isMaxMoveValid(i[0], i[1], r, c) and self.checkSides(i[0], i[1], r, c):
                         self.gameState = self.copyState(orginalState)
-                        print("Moving ", i, "to ", r, c)
-                        print("After Changing ")
+
                         self.moveMax(i[0], i[1], r, c)
-                        self.display()
-                        states.append(self.gameState)
+                        states.append(QDW(self.gameState,self.whoseTurn))
 
         self.gameState = self.copyState(orginalState)
 
         return states
+    def copyTurn(self,turn):
+        if turn==True:
+            return True
+        else:
+            return False
+
+    def winFor(self,temp):
+        if temp=='MAX':
+            for r in range(1,6):
+                for c in range(1,6):
+                    if r==5 and self.gameState[r,c]=='Q':
+                        return True
+                    else:
+                        return False
 
 
+        if temp=='MIN':
+            value=True
+            for r in range(1,6):
+                for c in range(1,6):
+                    if self.gameState[r,c]=='Q':
+                        value=False
+
+            return value
+
+    def isTerminal(self):
+        """ *** needed for search ***
+        :param node: a game tree node with stored game state
+        :return: a boolean indicating if node is terminal
+        """
+        return self.winFor('MAX') or self.winFor('MIN') #or (len(self.allBlanks()) == 0) #Change this later to check if its a terminal
+
+    def togglePlayer(self,player):
+        if player=='MAX':
+
+            self.whoseTurn= 'MIN'
+        if player == 'MIN':
+
+            self.whoseTurn= 'MAX'
+
+
+
+    def isMinNode(self):
+        """ *** needed for search ***
+        :return: True if it's Min's turn to play
+        """
+        return self.whoseTurn == 'MAX'
+
+
+    def isMaxNode(self):
+        """ *** needed for search ***
+        :return: True if it's Max's turn to play
+        """
+        return self.whoseTurn == 'MIN'
+
+
+    def successors(self):
+        if self.whoseTurn=='MAX':
+            #self.togglePlayer('MAX')
+            print("Made ito max")
+            return self.maxSuccersor()
+        else:
+            print("Made it to min")
+            #self.togglePlayer('MIN')
+
+            return self.minSuccersor()
+
+    def utility(self):
+        """ *** needed for search ***
+        :return: 1 if win for X, -1 for win for O, 0 for draw
+        """
+        if self.winFor('MAX'):
+            return 1
+        elif self.winFor('MIN'):
+            return -1
+        else:
+            return 0
