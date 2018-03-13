@@ -46,7 +46,7 @@ def buttonClick(row,col):
     global c
     global R
     global C
-    global a
+
     if  r==None:
         r=row
     else:
@@ -63,10 +63,25 @@ def buttonClick(row,col):
             R = None
             C = None
             stateToButton(a.gameState, temp)
-            a.whoseTurn = 'MAX'
-            result = alphaBeta(a,3)
-            a=result
-            stateToButton(a.gameState, temp)
+            AiMove()
+
+            print("Here")
+        else:
+            L=Label(frame, text="You win")
+            r = None
+            c = None
+            R = None
+            C = None
+def AiMove():
+    global  a
+
+    a.whoseTurn='MAX'
+    result = alphaBeta(a, 3)
+    a = result
+    stateToButton(a.gameState, temp)
+
+
+
 
 
 

@@ -347,8 +347,38 @@ class QDW:
         :return: 1 if win for X, -1 for win for O, 0 for draw
         """
         if self.winFor('MAX'):
-            return 1
+            return 10
         elif self.winFor('MIN'):
-            return -1
+            return -10
         else:
-            return randint(-5,5)
+            return self.evaluate()
+
+    def evaluate(self):
+        score=0
+        zombieCount=0
+        dragonCount=0
+
+        for r in range(1,6):
+            for c in range(1,6):
+                if self.gameState[r,c]=='W':
+                    zombieCount=zombieCount+1
+                if self.gameState[r,c]=='D':
+                    dragonCount=dragonCount+1
+        array1=self.findMinNodePostion(self.gameState)
+        array2=self.findMaxNodePostion(self.gameState)
+        queenR=array2[0][0]
+        queenC=array2[1][0]
+        distance=0
+        for i in array1:
+            d=abs(queenR-i[0])+(queenC-i[1])
+            if(d>distance):
+                distance=d
+        num=10+distance
+
+        score=score-num
+        for r in range(1,6):
+            num=abs(queenR-5)+abs(queenC-r)
+        num=10-num
+        score=score+num-20
+        score=score+(5*dragonCount-3*zombieCount)
+        return score

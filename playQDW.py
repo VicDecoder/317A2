@@ -15,7 +15,7 @@ a.display()
 
 i = 0
 
-# while (not a.isTerminal() ) and i < 200:
+# while (not a.isTerminal()) and i < 50:
 #     start = time.process_time()
 #     result = minimax(a)
 #     end = time.process_time()
@@ -24,9 +24,11 @@ i = 0
 #     a = result[1]
 #     print(i)
 #     i= i + 1
-while (not a.isTerminal() ) and i < 200:
+#
+
+while (not a.isTerminal() ) and i < 50:
     start = time.process_time()
-    result = alphaBeta(a,7)
+    result = alphaBeta(a,3)
     end = time.process_time()
     print('Took', end-start, 'seconds to determine the minimax value')
 
