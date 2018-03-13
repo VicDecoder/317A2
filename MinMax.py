@@ -6,7 +6,7 @@
 # Warning: The transposition table can fill up quickly!
 
 
-
+infinity=float('inf')
 def minimax(start):
     """
 
@@ -83,3 +83,37 @@ def argmin(ns):
         if v < minv:
             minv,mins = v,s
     return minv,mins
+
+def alphaBeta(start, depth):
+    def maxValue(start,alpha, beta,depth):
+        if start.isTerminal() or depth<=0:
+            return start.utility()
+
+        v = -infinity
+        for a in start.successors():
+            v=max(v,minValue(a,alpha,beta,depth-1))
+            if v>= beta:
+                return v
+            alpha =max(alpha,v)
+        return v
+    def minValue(start,alpha,beta,depth):
+        if start.isTerminal() or depth <= 0:
+            return start.utility()
+
+        v = infinity
+        for a in start.successors():
+            v = min(v, maxValue(a, alpha, beta, depth -1))
+            if v <= alpha:
+                return v
+            beta = min(beta, v)
+        return v
+    bestscore=-infinity
+    beta=infinity
+    bestAction=None
+
+    for a in start.successors():
+        v = minValue(a, bestscore, beta, depth)
+        if v > bestscore:
+            bestscore = v
+            bestAction = a
+    return bestAction

@@ -1,3 +1,4 @@
+from random import randint
 class QDW:
 
 
@@ -350,4 +351,4 @@ class QDW:
         elif self.winFor('MIN'):
             return -1
         else:
-            return 0
+            return randint(-50,50)
