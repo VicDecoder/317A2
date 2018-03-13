@@ -3,14 +3,18 @@ import QDW as Game
 from MinMax import minimax
 import time as time
 
-
 a = Game.QDW(None)
 a.loadCharacters()
 a.display()
 
+
+
+
+# a.maxSuccersor()
+
 i = 0
 
-while (not a.isTerminal() ) and i < 50:
+while (not a.isTerminal() ) and i < 200:
     start = time.process_time()
     result = minimax(a)
     end = time.process_time()

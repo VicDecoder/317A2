@@ -40,6 +40,9 @@ def minimax(start):
             for res_state in possibilities:
                 val,  _ = do_minimax(res_state, depthlimit - 1)
                 values.append((val, res_state))
+            if(values == []):
+                 print("fuck")
+
 
             if node.isMaxNode():
                 val,res_state = argmax(values)
@@ -60,7 +63,9 @@ def argmax(ns):
     :param ns: a list of utility,move pairs
     :return:  the utility,move pair with the highest utility
     """
+
     maxv,maxs = ns[0]
+
     for v,s in ns:
         if v > maxv:
             maxv,maxs = v,s
