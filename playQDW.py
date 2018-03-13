@@ -26,7 +26,7 @@ i = 0
 #     i= i + 1
 while (not a.isTerminal() ) and i < 200:
     start = time.process_time()
-    result = alphaBeta(a,1)
+    result = alphaBeta(a,7)
     end = time.process_time()
     print('Took', end-start, 'seconds to determine the minimax value')
 

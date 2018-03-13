@@ -351,4 +351,4 @@ class QDW:
         elif self.winFor('MIN'):
             return -1
         else:
-            return randint(-50,50)
+            return randint(-5,5)
