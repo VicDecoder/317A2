@@ -4,10 +4,11 @@
 # The transposition table is a dictionary (hash table) that remembers if
 # a game state was seen before, and it it was, what its minimax value is.
 # Warning: The transposition table can fill up quickly!
-
+import sys
 
 infinity=float('inf')
 def minimax(start):
+
     """
 
     MINIMAX returns VALUE,MOVE,STATE
@@ -25,7 +26,9 @@ def minimax(start):
     """
     transpositionTable = dict()
 
-    def do_minimax(node, depthlimit = 2):
+    def do_minimax(node, depthlimit = 3):
+
+
         s = node.str()
         if s in transpositionTable:
             return transpositionTable[s]
@@ -38,10 +41,10 @@ def minimax(start):
 
             values = []
             for res_state in possibilities:
+
                 val,  _ = do_minimax(res_state, depthlimit - 1)
                 values.append((val, res_state))
-            if(values == []):
-                 print("fuck")
+
 
 
             if node.isMaxNode():
@@ -53,9 +56,12 @@ def minimax(start):
                 return None
 
         transpositionTable[s] = val, res_state  # store the move and the utility in the tpt
+        print("The size of the transposition table is ", sys.getsizeof(transpositionTable))
+
         return val,res_state
 
     return do_minimax(start)
+
 
 def argmax(ns):
     """

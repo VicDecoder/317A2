@@ -357,6 +357,7 @@ class QDW:
         score=0
         zombieCount=0
         dragonCount=0
+        queenScore=0
 
         for r in range(1,6):
             for c in range(1,6):
@@ -364,6 +365,8 @@ class QDW:
                     zombieCount=zombieCount+1
                 if self.gameState[r,c]=='D':
                     dragonCount=dragonCount+1
+                if self.gameState[r,c]=='Q':
+                    queenScore=5
         array1=self.findMinNodePostion(self.gameState)
         array2=self.findMaxNodePostion(self.gameState)
         queenR=array2[0][0]
@@ -376,9 +379,10 @@ class QDW:
         num=10+distance
 
         score=score-num
+
         for r in range(1,6):
             num=abs(queenR-5)+abs(queenC-r)
         num=10-num
         score=score+num-20
-        score=score+(5*dragonCount-3*zombieCount)
+        score=score+(5*dragonCount-3*zombieCount)+queenScore
         return score

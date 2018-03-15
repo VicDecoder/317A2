@@ -15,23 +15,23 @@ a.display()
 
 i = 0
 
-# while (not a.isTerminal()) and i < 50:
-#     start = time.process_time()
-#     result = minimax(a)
-#     end = time.process_time()
-#     print('Took', end-start, 'seconds to determine the minimax value', result[0])
-#     result[1].display()
-#     a = result[1]
-#     print(i)
-#     i= i + 1
-#
-
-while (not a.isTerminal() ) and i < 50:
+while (not a.isTerminal()) and i < 50:
     start = time.process_time()
-    result = alphaBeta(a,3)
+    result = minimax(a)
     end = time.process_time()
-    print('Took', end-start, 'seconds to determine the minimax value')
-
-    result.display()
-    a=result
+    print('Took', end-start, 'seconds to determine the minimax value', result[0])
+    result[1].display()
+    a = result[1]
+    print(i)
     i= i + 1
+
+
+# while (not a.isTerminal() ) and i < 50:
+#     start = time.process_time()
+#     result = alphaBeta(a,3)
+#     end = time.process_time()
+#     print('Took', end-start, 'seconds to determine the minimax value')
+#
+#     result.display()
+#     a=result
+#     i= i + 1
