@@ -25,8 +25,9 @@ def minimax(start):
     :return: a pair, u,m consisting of the minimax utility, and a move that obtains it
     """
     transpositionTable = dict()
+    print()
 
-    def do_minimax(node, depthlimit = 3):
+    def do_minimax(node, depthlimit = 4):
 
 
         s = node.str()
@@ -56,7 +57,8 @@ def minimax(start):
                 return None
 
         transpositionTable[s] = val, res_state  # store the move and the utility in the tpt
-        print("The size of the transposition table is ", sys.getsizeof(transpositionTable))
+        #print("The size of the transposition table is ", sys.getsizeof(transpositionTable))
+        #print("The count of the nodes is", sys.getsizeof(transpositionTable)/1184)
 
         return val,res_state
 

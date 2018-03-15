@@ -7,7 +7,7 @@ import time as time
 a = Game.QDW(None)
 a.loadCharacters()
 a.display()
-
+print("THe gmae size ",a.getSize())
 
 
 
@@ -24,6 +24,7 @@ while (not a.isTerminal()) and i < 50:
     a = result[1]
     print(i)
     i= i + 1
+
 
 
 # while (not a.isTerminal() ) and i < 50:

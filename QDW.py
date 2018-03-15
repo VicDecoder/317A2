@@ -1,4 +1,5 @@
 from random import randint
+import sys
 class QDW:
 
 
@@ -18,6 +19,7 @@ class QDW:
         else:
             self.gameState = state
         self.whoseTurn = player
+        self.nodeCount=0
 
 
     def str(self):
@@ -332,6 +334,7 @@ class QDW:
 
 
     def successors(self):
+        self.nodeCount+=1
         if self.whoseTurn=='MAX':
             #self.togglePlayer('MAX')
 
@@ -341,6 +344,7 @@ class QDW:
             #self.togglePlayer('MIN')
 
             return self.minSuccersor()
+
 
     def utility(self):
         """ *** needed for search ***
@@ -386,3 +390,5 @@ class QDW:
         score=score+num-20
         score=score+(5*dragonCount-3*zombieCount)+queenScore
         return score
+    def getSize(self):
+        return sys.getsizeof(self.gameState)
