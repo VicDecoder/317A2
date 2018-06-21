@@ -1,7 +1,9 @@
 # 317A2
 AI Assignment 2
 
-The Dragon Queen
+The Dragon Queen.         
+  
+  
 The Dragon Queen is a game played on a board with 5 columns and 5 rows. One player (Player 1) controls the Queen, who has three Dragon protectors.  The other player (Player 2) controls 5 wights (a.k.a zombies).  (This game, as far as I know, is a completely unique invention; I don't think you'll find anything quite like it anywhere, which is the whole point).  
 
 The Dragon Queen could be a Mad King, with a King's Guard.  Or the Wights could be Daleks.  Or the Wights could be Sith-Lords, with the Queen as a Fleeing Senator, guarded by Jedi Protectors.  
