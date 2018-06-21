@@ -10,10 +10,10 @@ Initial Position
 
 The initial position is as follows.  
   
-. . Q . .  
-. D D D .   
-. . . . .  
-. . . . .  
+.  . Q  .  .  
+. D D D  .   
+.  .  .  .  .  
+.  .  .  .  .  
 W W W W W  
 Traditionally, the Wights move first (Player 2).  
 End of Game. 
